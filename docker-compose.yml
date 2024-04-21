@@ -1,0 +1,23 @@
+version: '3.9'
+
+networks:
+  auth-network:
+    driver: bridge
+
+services:
+  DB:
+    container_name: container_mysql_auth_user
+    image: mysql:8.3.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'auth_user'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - 3306:3306
+    networks:
+      - auth-network
+    volumes:
+      - mysqlDb:/var/lib/mysql
+
+volumes:
+  mysqlDb:
