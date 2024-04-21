@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -87,7 +86,7 @@ public class JWTService {
 
     private boolean isTokenValid(String token) {
         final String username = validateAccessToken(token);
-        return (isNotEmpty(username)) && !isTokenExpired(token);
+        return isNotEmpty(username);
     }
 
     public String validateAccessToken(String token) {
@@ -124,10 +123,6 @@ public class JWTService {
     private Instant generateExpirationTokenDate() {
         return LocalDateTime.now().plusHours(4)
                 .toInstant(ZoneOffset.UTC);
-    }
-
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).isBefore(new Date().toInstant().atZone(ZoneOffset.UTC).toInstant());
     }
 
     private Instant extractExpiration(String token) {
