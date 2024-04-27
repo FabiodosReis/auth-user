@@ -64,7 +64,7 @@ public class ControllerExceptionHandler {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(
                             DetailError.builder()
-                                    .code(HttpStatus.UNAUTHORIZED.value())
+                                    .code(HttpStatus.FORBIDDEN.value())
                                     .date(LocalDateTime.now())
                                     .message("Authentication not authorized")
                                     .build()

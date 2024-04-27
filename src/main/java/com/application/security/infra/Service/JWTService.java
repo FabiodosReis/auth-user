@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,6 +22,7 @@ import static com.application.security.infra.constants.ClaimConstants.*;
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 
 @Service
+@Log4j2
 public class JWTService {
 
     @Value("${api.security.token.secret}")
@@ -43,6 +45,9 @@ public class JWTService {
                     .sign(algorithm);
 
             String refreshToken = generateRefreshToken(token);
+
+            log.info("Login successfully");
+
             return TokenDto.builder()
                     .token(token)
                     .refreshToken(refreshToken)
@@ -68,7 +73,7 @@ public class JWTService {
                 Algorithm algorithm = Algorithm.HMAC256(refreshTokenSecret);
                 Instant tokenExpireDate = extractExpiration(token);
                 Instant refreshTokenExpireDate = tokenExpireDate
-                        .plus(5, ChronoUnit.MINUTES)
+                        .plus(1, ChronoUnit.HOURS)
                         .atZone(ZoneOffset.UTC).toInstant();
 
                 return JWT.create()
@@ -77,9 +82,11 @@ public class JWTService {
                         .withExpiresAt(refreshTokenExpireDate)
                         .sign(algorithm);
             } else {
+                log.error("Invalid Token");
                 throw new BadCredentialsException("Invalid Token");
             }
         } catch (Exception e) {
+            log.error("Error while generating refresh token");
             throw new SecurityException("Error while generating refresh token", e);
         }
     }
@@ -116,12 +123,13 @@ public class JWTService {
                  BadCredentialsException e) {
             throw e;
         } catch (SecurityException e) {
+            log.error("Error try authentication user");
             throw new SecurityException("Error try authentication user");
         }
     }
 
     private Instant generateExpirationTokenDate() {
-        return LocalDateTime.now().plusHours(4)
+        return LocalDateTime.now().plusHours(1)
                 .toInstant(ZoneOffset.UTC);
     }
 

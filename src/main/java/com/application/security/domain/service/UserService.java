@@ -1,6 +1,5 @@
 package com.application.security.domain.service;
 
-import com.application.security.api.dto.CustomPage;
 import com.application.security.domain.exception.UserException;
 import com.application.security.domain.repository.RoleRepository;
 import com.application.security.domain.model.Role;
@@ -8,8 +7,7 @@ import com.application.security.domain.model.User;
 import com.application.security.domain.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,6 +26,7 @@ import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
@@ -69,6 +68,8 @@ public class UserService implements UserDetailsService {
 
         user.setRoles(roles);
         repository.save(user);
+
+        log.info("User save successfully");
     }
 
     @Transactional
@@ -92,6 +93,8 @@ public class UserService implements UserDetailsService {
 
         repository.save(currentUser);
 
+        log.info("User updated successfully");
+
     }
 
     private void validation(User user) throws UserException {
@@ -106,6 +109,9 @@ public class UserService implements UserDetailsService {
         if (isEmpty(user) || isEmpty(user.getPassword())) {
             throw new UserException("Password is required");
         }
+
+        log.info("User is valid");
+
     }
 
     @Transactional

@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: production
   jpa:
     hibernate:
       naming:
@@ -6,21 +8,21 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog.xml
   server:
-    port: ${port:8080}
+    port: 8080
   application:
     name: auth-user
 
 api:
   security:
     token:
-      secret: ${TOKEN_SECRET:018f015d-6d99-72e3-b3cd-b205d97737b7}
+      secret: ${TOKEN_SECRET}
     refresh:
       token:
-        secret: ${TOKEN_REFRESH_SECRET:018f015d-9856-767e-a221-d45550f3e1c5}
+        secret: ${TOKEN_REFRESH_SECRET}
 
 auth-user:
   datasource:
-    jdbcUrl: jdbc:mysql://${DB_HOST}:3306/auth_user?allowPublicKeyRetrieval=true&useSSL=false
+    jdbcUrl: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?allowPublicKeyRetrieval=true&useSSL=false
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     maximumPoolSize: 3

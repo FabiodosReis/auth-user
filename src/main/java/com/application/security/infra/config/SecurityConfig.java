@@ -104,19 +104,6 @@ public class SecurityConfig {
         return new CorsFilter(source);
     }
 
-
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource(){
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowedOrigins(List.of("*"));
-//        config.setAllowedMethods(List.of("*"));
-//        config.setAllowedHeaders(List.of("*"));
-//        UrlBasedCorsConfigurationSource source = new
-//                UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", config);
-//        return source;
-//    }
-
     private void authenticationRequest(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
                 .requestMatchers(allowRequest).permitAll()
