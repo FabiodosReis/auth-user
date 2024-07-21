@@ -153,7 +153,21 @@ public class UserService implements UserDetailsService {
         if (newPassword.length() < 6) {
             throw new UserException("Password must be minimal 6 characters");
         }
+    }
 
+
+    @Transactional
+    public void linkRoles(String userId, List<String> roleIds){
+        User user = findById(userId);
+        List<Role> roles = new ArrayList<>();
+
+        roleIds.forEach(roleId -> roleRepository.findById(roleId).ifPresent(roles::add));
+        roles.addAll(user.getRoles());
+
+        user.setRoles(roles);
+        repository.save(user);
+
+        log.info("link roles successfully");
     }
 
     //load user and role in order to generate token

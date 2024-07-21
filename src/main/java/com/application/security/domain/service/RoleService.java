@@ -5,10 +5,10 @@ import com.application.security.domain.repository.RoleRepository;
 import com.application.security.domain.model.Role;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.apache.commons.lang3.ObjectUtils.isEmpty;
 
@@ -24,8 +24,9 @@ public class RoleService {
         repository.save(role);
     }
 
-    public Optional<Role> findByName(String name) {
-      return repository.findByName(name);
+    public Role findByName(String name) throws RoleException {
+      return repository.findByName(name)
+              .orElseThrow(() -> new RoleException(String.format("Role %s not found.", name)));
     }
 
     private void validation(Role role) throws RoleException {
@@ -40,7 +41,7 @@ public class RoleService {
                 });
     }
 
-    public List<Role> findByUserId(String userId){
-        return repository.findByUserId(userId);
+    public List<Role> findAll(Pageable pageable){
+        return repository.findAll(pageable).getContent();
     }
 }

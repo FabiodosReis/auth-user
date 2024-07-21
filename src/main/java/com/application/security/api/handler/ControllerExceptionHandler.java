@@ -5,6 +5,7 @@ import com.application.security.domain.exception.RoleException;
 import com.application.security.domain.exception.UserException;
 import com.application.security.infra.exception.AuthenticationSecurityException;
 import com.application.security.infra.exception.SecurityException;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,13 +50,13 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handlerExceptionResolver(Exception exception) {
 
-        if (exception instanceof BadCredentialsException) {
+        if (exception instanceof BadCredentialsException || exception instanceof AlgorithmMismatchException) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(
                             DetailError.builder()
                                     .code(HttpStatus.FORBIDDEN.value())
                                     .date(LocalDateTime.now())
-                                    .message("Authentication failure")
+                                    .message(exception.getMessage())
                                     .build()
                     );
         }

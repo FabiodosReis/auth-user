@@ -10,8 +10,8 @@ services:
     image: mysql:8.3.0
     restart: always
     environment:
-      MYSQL_DATABASE: 'auth_user'
-      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'authentication'
+      MYSQL_ROOT_PASSWORD: 'Fa14151415!'
     ports:
       - 3306:3306
     networks:

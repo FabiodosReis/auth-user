@@ -41,7 +41,7 @@ public class UserController {
         service.disable(id);
     }
 
-    @PreAuthorize(value = "hasAnyAuthority('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasAnyAuthority('ROLE_USER')")
     @PutMapping("{id}/changePassword")
     @ResponseStatus(HttpStatus.OK)
     public void changePassword(@PathVariable("id") String id, @RequestBody ChangePasswordDto passwordDto) {
@@ -76,6 +76,13 @@ public class UserController {
                 totalElements
         );
         return new CustomPage<>(content, customPageable);
+    }
+
+    @PreAuthorize(value = "hasAnyAuthority('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PutMapping("link-roles")
+    public void linkRoles(@RequestBody RoleUserRequestDTO dto) {
+        service.linkRoles(dto.getUser(), dto.getRoles());
     }
 
 }
