@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter @Getter
+@Setter
+@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateRequestDto {
 
@@ -13,12 +14,13 @@ public class UpdateRequestDto {
     private String email;
     private String confirmEmail;
 
-    public User toEntity(String id){
-        User user = new User();
-        user.setId(id);
-        user.setEmail(email);
-        user.setName(name);
-        return user;
+    public User toEntity(String id) {
+        return User.builder()
+                .id(id)
+                .email(email)
+                .name(name)
+                .build();
+
     }
 
 }

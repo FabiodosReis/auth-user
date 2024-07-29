@@ -10,7 +10,8 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
+@Getter
+@Setter
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -23,11 +24,12 @@ public class UserRequestDto {
 
     private List<String> roles = new ArrayList<>();
 
-    public User toEntity(){
-        User user = new User();
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setName(name);
-        return user;
+    public User toEntity() {
+        return User.builder()
+                .password(password)
+                .email(email)
+                .name(name)
+                .build();
+
     }
 }

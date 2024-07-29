@@ -31,7 +31,6 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
     private final RoleRepository roleRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -45,6 +44,8 @@ public class UserService implements UserDetailsService {
         User user = findById(userId);
 
         user.setPassword(passwordEncoder.encode(newPassword));
+
+        repository.save(user);
 
     }
 
@@ -86,7 +87,7 @@ public class UserService implements UserDetailsService {
 
         validation(currentUser);
 
-        repository.findByEmailAndId(user.getEmail(), user.getId())
+        repository.findByEmailAndId(currentUser.getEmail(), currentUser.getId())
                 .ifPresent(findUser -> {
                     throw new UserException(String.format("Email %s already exist", user.getEmail()));
                 });

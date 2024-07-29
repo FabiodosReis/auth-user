@@ -23,15 +23,16 @@ public class RoleController {
     @PreAuthorize(value = "hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void save(@RequestBody RoleRequestDto dto){
-        Role role = new Role();
-        role.setName(dto.getName());
+    public void save(@RequestBody RoleRequestDto dto) {
+        Role role = Role.builder()
+                .name(dto.getName())
+                .build();
         service.save(role);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public CustomPage<?> findAll(@PageableDefault(size = 20, sort = {"name"}) Pageable pageable){
+    public CustomPage<?> findAll(@PageableDefault(size = 20, sort = {"name"}) Pageable pageable) {
         List<RoleResponseDTO> content = service.findAll(pageable)
                 .stream().map(role -> RoleResponseDTO.builder().id(role.getId()).name(role.getName()).build())
                 .toList();
@@ -51,7 +52,7 @@ public class RoleController {
 
     @GetMapping("/name/{roleName}")
     @ResponseStatus(HttpStatus.OK)
-    public RoleResponseDTO findByRoleName(@PathVariable("roleName") String roleName){
+    public RoleResponseDTO findByRoleName(@PathVariable("roleName") String roleName) {
         Role role = service.findByName(roleName);
 
         return RoleResponseDTO.builder()

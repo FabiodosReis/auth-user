@@ -2,6 +2,7 @@ package com.application.security.domain.model;
 
 import com.application.security.api.dto.UserRequestDto;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ import static com.application.security.domain.constants.RoleUserEnum.ROLE_USER;
 @Table(name = "user")
 @Getter
 @Setter
+@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User implements UserDetails {
 
