@@ -254,14 +254,13 @@ public class UserServiceTest {
     @Test
     public void shouldUpdateUser() {
         var user = getUser();
-        var userUpdate = User.builder()
-                .id("cf5345b5-2aaf-49eb-823d-66e5431c2f9b")
-                .name("user update")
-                .email("userUpdate@gmail.com")
-                .createDate(LocalDateTime.of(2024, 6, 1, 0, 0, 0))
-                .enable(true)
-                .password("998766")
-                .build();
+        var userUpdate = new User();
+        userUpdate.setId("cf5345b5-2aaf-49eb-823d-66e5431c2f9b");
+        userUpdate.setName("user update");
+        userUpdate.setEmail("userUpdate@gmail.com");
+        userUpdate.setCreateDate(LocalDateTime.of(2024, 6, 1, 0, 0, 0));
+        userUpdate.setEnable(true);
+        userUpdate.setPassword("998766");
 
         when(userRepository.findById(eq(user.getId())))
                 .thenReturn(Optional.of(user));
@@ -298,14 +297,13 @@ public class UserServiceTest {
     @Test
     public void shouldNotUpdateUserEmailAlreadyExists() {
         var user = getUser();
-        var userUpdate = User.builder()
-                .id("cf5345b5-2aaf-49eb-823d-66e5431c2f9b")
-                .name("user update")
-                .email("userUpdateEmail@gmail.com")
-                .createDate(LocalDateTime.of(2024, 6, 1, 0, 0, 0))
-                .enable(true)
-                .password("998766")
-                .build();
+        var userUpdate = new User();
+        userUpdate.setId("cf5345b5-2aaf-49eb-823d-66e5431c2f9b");
+        userUpdate.setName("user update");
+        userUpdate.setEmail("userUpdateEmail@gmail.com");
+        userUpdate.setCreateDate(LocalDateTime.of(2024, 6, 1, 0, 0, 0));
+        userUpdate.setEnable(true);
+        userUpdate.setPassword("998766");
 
         when(userRepository.findById(eq(user.getId())))
                 .thenReturn(Optional.of(user));
@@ -422,7 +420,6 @@ public class UserServiceTest {
 
             service.findByEmail("test@gmail.com");
         });
-
         assertEquals("User test@gmail.com not found.", exception.getMessage());
     }
 
@@ -445,20 +442,19 @@ public class UserServiceTest {
 
         verify(userRepository, times(1))
                 .findAll(any(Pageable.class));
-
     }
 
     @Test
     public void shouldLinkRoles() {
         var user = getUser();
-        user.setRoles(List.of(Role.builder()
-                .id("225345b5-2aaf-49eb-823d-66e5431c2f88")
-                .name(ROLE_USER.name())
-                .build()));
-        var adminRole = Role.builder()
-                .id("cf5345b5-2aaf-49eb-823d-66e5431c2f9b")
-                .name(ROLE_ADMIN.name())
-                .build();
+        var userRole = new Role();
+        userRole.setId("225345b5-2aaf-49eb-823d-66e5431c2f88");
+        userRole.setName(ROLE_USER.name());
+        user.setRoles(List.of(userRole));
+        var adminRole = new Role();
+        adminRole.setId("cf5345b5-2aaf-49eb-823d-66e5431c2f9b");
+        adminRole.setName(ROLE_ADMIN.name());
+
 
         when(userRepository.findById(user.getId()))
                 .thenReturn(Optional.of(user));
@@ -511,22 +507,22 @@ public class UserServiceTest {
 
 
     private User getUser() {
-        return User.builder()
-                .id("cf5345b5-2aaf-49eb-823d-66e5431c2f9b")
-                .email("test@gmail.com")
-                .name("Test")
-                .roles(Collections.emptyList())
-                .createDate(LocalDateTime.of(2024, 6, 1, 0, 0, 0))
-                .enable(true)
-                .password("998766")
-                .build();
+        var user = new User();
+        user.setId("cf5345b5-2aaf-49eb-823d-66e5431c2f9b");
+        user.setEmail("test@gmail.com");
+        user.setName("Test");
+        user.setRoles(Collections.emptyList());
+        user.setCreateDate(LocalDateTime.of(2024, 6, 1, 0, 0, 0));
+        user.setEnable(true);
+        user.setPassword("998766");
+        return user;
     }
 
     private Role getUserRole() {
-        return Role.builder()
-                .id("df1234400-2aaf-49eb-gh34-05e543162f91")
-                .name(ROLE_USER.name())
-                .build();
+        var role = new Role();
+        role.setId("df1234400-2aaf-49eb-gh34-05e543162f91");
+        role.setName(ROLE_USER.name());
+        return role;
     }
 
 }

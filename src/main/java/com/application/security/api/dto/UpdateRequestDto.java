@@ -15,12 +15,10 @@ public class UpdateRequestDto {
     private String confirmEmail;
 
     public User toEntity(String id) {
-        return User.builder()
-                .id(id)
-                .email(email)
-                .name(name)
-                .build();
-
+        var user = new User();
+        user.setId(id);
+        user.setEmail(email);
+        user.setName(name);
+        return user;
     }
-
 }

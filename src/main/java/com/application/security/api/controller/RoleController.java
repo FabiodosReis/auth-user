@@ -24,9 +24,8 @@ public class RoleController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void save(@RequestBody RoleRequestDto dto) {
-        Role role = Role.builder()
-                .name(dto.getName())
-                .build();
+        var role = new Role();
+        role.setName(dto.getName());
         service.save(role);
     }
 
@@ -60,5 +59,4 @@ public class RoleController {
                 .name(role.getName())
                 .build();
     }
-
 }

@@ -13,7 +13,7 @@ services:
       MYSQL_DATABASE: 'authentication'
       MYSQL_ROOT_PASSWORD: 'Fa14151415!'
     ports:
-      - 3306:3306
+      - "3306:3306"
     networks:
       - auth-network
     volumes:
