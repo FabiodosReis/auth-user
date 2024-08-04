@@ -1,5 +1,0 @@
-name: quality
-
-on:
-  pull_request:
-    branches: master
