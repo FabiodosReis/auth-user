@@ -37,7 +37,7 @@ public class RoleService {
 
         repository.findByName(role.getName())
                 .ifPresent(c -> {
-                    throw new RoleException(String.format("Name: %s already exists", role.getName()));
+                    throw new RoleException(String.format("%s already exists", role.getName()));
                 });
     }
 
