@@ -6,9 +6,11 @@ on:
       - master
 
 jobs:
-  build-and-push:
+  pipeline-production:
     name: Build and push to ECR
     runs-on: ubuntu-latest
+    env:
+      AWS_DEFAULT_REGION: us-east-1
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -39,7 +41,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: authuser-api
+          ECR_REPOSITORY: 'authuser-api'
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .

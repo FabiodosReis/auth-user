@@ -8,7 +8,7 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog.xml
   server:
-    port: 8080
+    port: 80
   application:
     name: auth-user
 
