@@ -18,11 +18,11 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Build Project
-        run: mvn clean install -DskipTests
+      - name: Build Project and Test
+        run: mvn clean test
 
-      - name: test
-        run: org.jacoco:jacoco-maven-plugin:prepare-agent test -Dspring.profiles.active=test -Djava.util.PropertyResourceBundle.encoding=UTF=8 -Duser.timezone=UTC
+     # - name: test
+     #   run: org.jacoco:jacoco-maven-plugin:prepare-agent test -Dspring.profiles.active=test -Djava.util.PropertyResourceBundle.encoding=UTF=8 -Duser.timezone=UTC
 
 
 
