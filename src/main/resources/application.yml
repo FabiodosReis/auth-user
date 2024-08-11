@@ -1,35 +1,22 @@
+server:
+  port: 80
+  compression:
+    enabled: true
+    mime-types:
+      - application/json
+
 spring:
-  profiles:
-    active: production
+  application:
+    name: auth-user
   jpa:
+    open-in-view: false
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   liquibase:
     change-log: classpath:/db/changelog.xml
-  server:
-    port: 80
-  application:
-    name: auth-user
 
-api:
-  security:
-    token:
-      secret: ${TOKEN_SECRET}
-    refresh:
-      token:
-        secret: ${TOKEN_REFRESH_SECRET}
 
-auth-user:
-  datasource:
-    jdbcUrl: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?allowPublicKeyRetrieval=true&useSSL=false
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
-    maximumPoolSize: 3
-    minimumPoolSize: 3
-    connectionTestQuery: SELECT 1
-    poolName: security-pool
-    driverClassName: com.mysql.cj.jdbc.Driver
 
 
 

@@ -1,0 +1,23 @@
+spring:
+  config:
+    activate:
+      on-profile: staging
+
+auth-user:
+  datasource:
+    jdbcUrl: jdbc:mysql://localhost:3306/authentication?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: Fa14151415!
+    maximumPoolSize: 3
+    minimumPoolSize: 3
+    connectionTestQuery: SELECT 1
+    poolName: staging-security-pool
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+api:
+  security:
+    token:
+      secret: 018f015d-6d99-72e3-b3cd-b205d97737b7
+    refresh:
+      token:
+        secret: 018f015d-9856-767e-a221-d45550f3e1c5

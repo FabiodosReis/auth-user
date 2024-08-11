@@ -5,14 +5,14 @@ import com.application.security.domain.repository.RoleRepository;
 import config.DataSourceTestConfig;
 import config.DatabaseContainerConfig;
 import config.LiquibaseTestConfig;
-import config.RepositoryTest;
+import annotation.TestRepositoryCommonAnnotation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 
-@RepositoryTest
+@TestRepositoryCommonAnnotation
 @ContextConfiguration(
         classes = {LiquibaseTestConfig.class, DataSourceTestConfig.class, RoleRepository.class},
         initializers = {DatabaseContainerConfig.class}

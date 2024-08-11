@@ -1,0 +1,23 @@
+spring:
+  config:
+    activate:
+      on-profile: production
+
+auth-user:
+  datasource:
+    jdbcUrl: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?allowPublicKeyRetrieval=true&useSSL=false
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    maximumPoolSize: 3
+    minimumPoolSize: 3
+    connectionTestQuery: SELECT 1
+    poolName: security-pool
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+api:
+  security:
+    token:
+      secret: ${TOKEN_SECRET}
+    refresh:
+      token:
+        secret: ${TOKEN_REFRESH_SECRET}

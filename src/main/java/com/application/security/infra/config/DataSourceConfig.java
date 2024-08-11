@@ -54,7 +54,7 @@ public class DataSourceConfig {
     }
 
     @Bean("JdbcTemplate")
-    public JdbcTemplate catalogJdbcTemplate() {
+    public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(catalogDataSource());
     }
 }

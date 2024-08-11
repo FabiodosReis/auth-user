@@ -1,4 +1,4 @@
-package config;
+package annotation;
 
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
 @DataJpaTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public @interface RepositoryTest {
+public @interface TestRepositoryCommonAnnotation {
 }
