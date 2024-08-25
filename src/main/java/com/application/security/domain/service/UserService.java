@@ -5,6 +5,7 @@ import com.application.security.domain.repository.RoleRepository;
 import com.application.security.domain.model.Role;
 import com.application.security.domain.model.User;
 import com.application.security.domain.repository.UserRepository;
+import com.application.security.infra.annotation.Log;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -33,7 +34,7 @@ public class UserService implements UserDetailsService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Transactional
+    @Transactional @Log
     public void changePassword(
             String userId,
             String newPassword,
@@ -46,10 +47,9 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(newPassword));
 
         repository.save(user);
-
     }
 
-    @Transactional
+    @Transactional @Log
     public void save(User user) throws UserException {
         List<Role> roles = new ArrayList<>();
 
@@ -69,11 +69,9 @@ public class UserService implements UserDetailsService {
 
         user.setRoles(roles);
         repository.save(user);
-
-        log.info("User save successfully");
     }
 
-    @Transactional
+    @Transactional @Log
     public void update(User user) {
         User currentUser = findById(user.getId());
 
@@ -93,9 +91,6 @@ public class UserService implements UserDetailsService {
                 });
 
         repository.save(currentUser);
-
-        log.info("User updated successfully");
-
     }
 
     private void validation(User user) throws UserException {
@@ -110,12 +105,10 @@ public class UserService implements UserDetailsService {
         if (isEmpty(user) || isEmpty(user.getPassword())) {
             throw new UserException("Password is required");
         }
-
         log.info("User is valid");
-
     }
 
-    @Transactional
+    @Transactional @Log
     public void disable(String id) {
         repository.findById(id)
                 .ifPresent(currentUser -> {
@@ -124,11 +117,13 @@ public class UserService implements UserDetailsService {
                 });
     }
 
+    @Log
     public User findById(String id) throws UserException {
         return repository.findById(id)
                 .orElseThrow(() -> new UserException(String.format("User %s not found.", id)));
     }
 
+    @Log
     public List<User> findAll(Pageable pageable) throws UserException {
         return repository.findAll(pageable).getContent();
     }
@@ -157,7 +152,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    @Transactional
+    @Transactional @Log
     public void linkRoles(String userId, List<String> roleIds){
         User user = findById(userId);
         List<Role> roles = new ArrayList<>();
@@ -167,8 +162,6 @@ public class UserService implements UserDetailsService {
 
         user.setRoles(roles);
         repository.save(user);
-
-        log.info("link roles successfully");
     }
 
     //load user and role in order to generate token
