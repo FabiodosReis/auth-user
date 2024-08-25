@@ -7,6 +7,7 @@ import com.application.security.infra.exception.AuthenticationSecurityException;
 import com.application.security.infra.exception.SecurityException;
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,7 +18,7 @@ import java.nio.file.AccessDeniedException;
 import java.security.SignatureException;
 import java.time.LocalDateTime;
 
-
+@Log4j2
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
@@ -105,13 +106,13 @@ public class ControllerExceptionHandler {
                     );
         }
 
-
+        log.error("Error: {}", exception.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(
                         DetailError.builder()
                                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                                 .date(LocalDateTime.now())
-                                .message(exception.getMessage())
+                                .message(HttpStatus.INTERNAL_SERVER_ERROR.name())
                                 .build()
                 );
 

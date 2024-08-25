@@ -11,7 +11,7 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: 'authentication'
-      MYSQL_ROOT_PASSWORD: 'Fa14151415!'
+      MYSQL_ROOT_PASSWORD: '123'
     ports:
       - "3306:3306"
     networks:

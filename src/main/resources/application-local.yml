@@ -7,7 +7,7 @@ auth-user:
   datasource:
     jdbcUrl: jdbc:mysql://localhost:3306/authentication?allowPublicKeyRetrieval=true&useSSL=false
     username: root
-    password: Fa14151415!
+    password: 123
     maximumPoolSize: 3
     minimumPoolSize: 3
     connectionTestQuery: SELECT 1
