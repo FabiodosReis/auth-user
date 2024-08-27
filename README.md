@@ -28,19 +28,18 @@
     - docker(optional)
 
 ## How to run this project ?
-    A api auth-user se trata de uma api java 17 com spring boot, para rodar o projeto
-    é necessário ter o java 17 instalado e o mysql 8 localmente.
-    Caso não tenha um serviço do mysql 8 localmente, pode ser usado opcionalmente um
-    container Docker, na raíz do projeto existe um arquivo de nome "docker-compose.yml"
-    caso queira usar um container basta rodar o comando "docker-compose up" na raíz do
-    projeto para subir um container com o mysql antes de rodar o projeto.
-    Também será necessário setar uma váriavel de ambiente do spring profile para que
-    a Api suba corretamente: SPRING_PROFILES_ACTIVE=local.
+    The auth-user API is a Java 17 application using Spring Boot.
+    To run the project, you need to have Java 17 and MySQL 8 installed locally.
+    If you don't have MySQL 8 running locally, you can optionally use a Docker container.
+    In the project's root directory, there is a file named "docker-compose.yml".
+    To use a container, simply run the command "docker-compose up" in the root directory
+    to start a MySQL container before running the project.
+    You will also need to set a Spring profile environment variable for the API to run correctly:
+    SPRING_PROFILES_ACTIVE=local.
 
 # How to get started ?
-    Já existe um perfil cadastrado que tem acesso a todos os recursos da api, inclusive
-    criar outros usuários.
-    É possível recuperar um token valido com essas credenciais de teste:
+    There is already a profile registered that has access to all the API's resources, including the ability
+    to create other users. You can retrieve a valid token with these test credentials:
     POST: http://localhost:8080/api/v1/authentication/login
             {
                 "email": "fabio_dos_reis@outlook.com",

@@ -32,7 +32,7 @@ public class LogAspect {
                 Arrays.stream(((CodeSignature) joinPoint.getSignature()).getParameterNames())
                         .toList();
 
-        for(int i = 0; i < parameterNameList.size(); i++){
+        for (int i = 0; i < parameterNameList.size(); i++) {
             parameterMap.put(parameterNameList.get(i), mapper.writeValueAsString(methodArguments[i]));
         }
 
