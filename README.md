@@ -5,7 +5,6 @@
     After the user is properly registered, it will be possible to make requests
     to generate "Bearer" access tokens that will be valid for 1 hour (UTC)
 
-
 ## Technologies used
     - Java 17
     - Spring boot
